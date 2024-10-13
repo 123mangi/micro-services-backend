@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "start:pm2": "pm2 start index.js --name simple-node-app",
+    "stop:pm2": "pm2 stop simple-node-app",
+    "restart:pm2": "pm2 restart simple-node-app",
+    "logs:pm2": "pm2 logs simple-node-app"
   },
   "repository": {
     "type": "git",
@@ -16,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/123mangi/micro-services-backend/issues"
   },
-  "homepage": "https://github.com/123mangi/micro-services-backend#readme"
+  "homepage": "https://github.com/123mangi/micro-services-backend#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "pm2": "^5.4.2"
+  }
 }
