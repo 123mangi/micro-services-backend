@@ -1,1 +1,43 @@
-runs-on: self-hosted
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+
+    - name: Copy files to EC2 via SSH
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: 13.232.27.148  # Your EC2 instance public IP
+        username: ubuntu      # Default EC2 Ubuntu username
+        key: ${{ secrets.AWS_KEY }}   # Your private key stored in GitHub secrets
+        source: "./*"         # Copy all the files in the current directory
+        target: "/var/www/my-app/backend/micro-services-backend"  # Directory on your EC2 instance where you want to deploy
+
+    - name: SSH and Restart Services
+      uses: appleboy/ssh-action@master
+      with:
+        host: 13.232.27.148  # Your EC2 instance public IP
+        username: ubuntu     # Default EC2 Ubuntu username
+        key: ${{ secrets.AWS_KEY }}   # Your private key stored in GitHub secrets
+        script: |
+          cd /var/www/my-app/backend/micro-services-backend
+          npm install
+          sudo systemctl restart nginx
