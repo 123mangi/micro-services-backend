@@ -41,3 +41,5 @@ jobs:
           cd /var/www/my-app/backend/micro-services-backend
           npm install
           sudo systemctl restart nginx
+          pm2 restart all
+          
