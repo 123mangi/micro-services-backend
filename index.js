@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Define a simple route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hello, World! to check action runner');
 });
 
