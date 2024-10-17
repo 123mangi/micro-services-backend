@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 // Define a simple route
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Hello, World! to check action runner');
 });
 
 // Start the server
